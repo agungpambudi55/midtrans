@@ -1,0 +1,801 @@
+{
+	"info": {
+		"_postman_id": "371fcec9-bf21-44a8-b38b-811f597c6ed4",
+		"name": "Midtrans Iris",
+		"description": "https://github.com/empeje/midtrans-iris-collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "text/plain"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/ping",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Beneficiaries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"console.log(\"Beneficiary name: \" + reqBody.name);",
+							"console.log(\"Beneficiary account: \" + reqBody.account);",
+							"console.log(\"Beneficiary bank: \" + reqBody.bank);",
+							"console.log(\"Beneficiary alias name: \" + reqBody.alias_name);",
+							"console.log(\"Beneficiary email: \" + reqBody.email);",
+							"",
+							"if (responseCode.code == 201)",
+							"    postman.setEnvironmentVariable(\"beneficiary_name\", reqBody.name);",
+							"    postman.setEnvironmentVariable(\"beneficiary_account\", reqBody.account);",
+							"    postman.setEnvironmentVariable(\"beneficiary_bank\", reqBody.bank);",
+							"    postman.setEnvironmentVariable(\"beneficiary_alias_name\", reqBody.alias_name);",
+							"    postman.setEnvironmentVariable(\"beneficiary_email\", reqBody.email);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Agung Pambudi\",\n  \"account\": \"1111222233333\",\n  \"bank\": \"mandiri\",\n  \"alias_name\": \"agungmandiri{{$randomInt}}\",\n  \"email\": \"agung.pambudi5595@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Beneficiaries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"console.log(\"Beneficiary name: \" + reqBody.name);",
+							"console.log(\"Beneficiary account: \" + reqBody.account);",
+							"console.log(\"Beneficiary bank: \" + reqBody.bank);",
+							"console.log(\"Beneficiary alias name: \" + reqBody.alias_name);",
+							"console.log(\"Beneficiary email: \" + reqBody.email);",
+							"",
+							"if (responseCode.code == 200)",
+							"    postman.setEnvironmentVariable(\"beneficiary_name\", reqBody.name);",
+							"    postman.setEnvironmentVariable(\"beneficiary_account\", reqBody.account);",
+							"    postman.setEnvironmentVariable(\"beneficiary_bank\", reqBody.bank);",
+							"    postman.setEnvironmentVariable(\"beneficiary_alias_name\", reqBody.alias_name);",
+							"    postman.setEnvironmentVariable(\"beneficiary_email\", reqBody.email);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Agung Pambudi\",\n  \"account\": \"1111222233333\",\n  \"bank\": \"mandiri\",\n  \"alias_name\": \"agungmandiri{{$randomInt}}\",\n  \"email\": \"agung.pambudi5595@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries/{{beneficiary_alias_name}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries",
+						"{{beneficiary_alias_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Beneficiaries",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiaries/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiaries",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payouts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var reqBody = JSON.parse(request.data);",
+							"var resBody = JSON.parse(responseBody);",
+							"",
+							"reference_no = resBody.payouts[0].reference_no;",
+							"reference_nos = [];",
+							"",
+							" resBody.payouts.forEach(function(payout) {",
+							"    console.log(\"Reference number: \" + payout.reference_no);",
+							"    reference_nos += payout.reference_no;",
+							"});",
+							"",
+							"console.log(\"Reference number: \" + reference_no);",
+							"",
+							"",
+							"if (responseCode.code == 201){",
+							"    postman.setEnvironmentVariable(\"reference_no\", reference_no);",
+							"    postman.setEnvironmentVariable(\"reference_nos\", reference_nos);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"{{beneficiary_name}}\",\n      \"beneficiary_account\": \"{{beneficiary_account}}\",\n      \"beneficiary_bank\": \"{{beneficiary_bank}}\",\n      \"beneficiary_email\": \"{{beneficiary_email}}\",\n      \"amount\": 3500000,\n      \"notes\": \"Withdraw sangu dongs\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Payouts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{APPROVER_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"{{reference_no}}\"]\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/approve",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Payouts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{APPROVER_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reference_nos\": [\"{{reference_no}}\"],\n  \"reject_reason\": \"Unta mahal babeee\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/reject",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payout Details",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/payouts/{{reference_no}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payouts",
+						"{{reference_no}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction History",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const fromDate = new Date();\r",
+							"const toDate = new Date();\r",
+							"\r",
+							"fromDate.setDate(fromDate.getDate() - 10);\r",
+							"\r",
+							"pm.environment.set('fromDate', fromDate.toISOString());\r",
+							"pm.environment.set('toDate', toDate.toISOString());\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"from_date\": \"{{fromDate}}\",\r\n  \"to_date\": \"{{toDate}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/statements",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"statements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top Up Channels",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/channels/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"channels",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Balance",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/balance",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Banks",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/beneficiary_banks",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"beneficiary_banks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Bank Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{CREATOR_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/account_validation?bank=mandiri&account=1111222233333",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account_validation"
+					],
+					"query": [
+						{
+							"key": "bank",
+							"value": "mandiri"
+						},
+						{
+							"key": "account",
+							"value": "1111222233333"
+						}
+					]
+				},
+				"description": "In this example we use Danamon bank. Complete if you can see here https://iris-docs.midtrans.com/#testing"
+			},
+			"response": []
+		}
+	]
+}
